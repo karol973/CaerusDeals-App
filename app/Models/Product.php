@@ -9,4 +9,8 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+
+    public function offers(){
+        return $this->belongsToMany(Offer::class, 'productsoffers', 'product_id', 'offer_id');
+    }
 }
