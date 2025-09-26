@@ -9,4 +9,8 @@ class Company extends Model
 {
     /** @use HasFactory<\Database\Factories\CompanyFactory> */
     use HasFactory;
+
+    public function offers(){
+        return $this->hasMany(Offer::class, 'company_id', 'id');
+    }
 }
