@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CompanyController extends Controller
 {
@@ -20,7 +21,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -28,7 +29,20 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required', 
+            'nip' => 'required', 
+        ]);
+
+        $company = new Company();
+        $company->name = $validated['name'];
+        $company->address = $validated['address'];
+        $company->nip = $validated['nip'];
+        $company->save();
+
+        Session::flash('success', 'Dodano nową firmę');
+        return redirect(route('dashboard'));
     }
 
     /**
