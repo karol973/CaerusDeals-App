@@ -13,7 +13,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+         $companies = Company::all();
+         return view ('company.index', [
+            'companies' => $companies
+         ]);
     }
 
     /**
@@ -21,7 +24,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('companies.create');
+        return view('company.create');
     }
 
     /**
@@ -42,7 +45,7 @@ class CompanyController extends Controller
         $company->save();
 
         Session::flash('success', 'Dodano nową firmę');
-        return redirect(route('dashboard'));
+        return redirect(route('company.index'));
     }
 
     /**
